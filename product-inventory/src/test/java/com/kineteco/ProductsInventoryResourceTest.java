@@ -1,5 +1,6 @@
 package com.kineteco;
 
+import com.kineteco.model.ProductInventory;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +13,18 @@ public class ProductsInventoryResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/hello")
+          .when().get("/products")
           .then()
              .statusCode(200)
-             .body(is("Hello RESTEasy"));
+             .body(is("Hello RESTEasy is up"));
     }
 
+    @Test
+    public void testInventory() {
+        given()
+                .when().get("/products/123")
+                .then()
+                .statusCode(200)
+                .extract().body().as(ProductInventory.class);
+    }
 }
